@@ -1,0 +1,1 @@
+# Конфигурация проекта (dotenv, BaseSettings)
