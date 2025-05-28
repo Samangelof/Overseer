@@ -40,7 +40,7 @@ files = {
 
     "state/report_state.py": "# Состояния FSM для диалога отчёта\n",
 
-    ".env": "# TG_TOKEN=your_token_here\n",
+    ".env": "# BOT_TOKEN=your_token_here\n",
     "requirements.txt": "aiogram==3.*\npython-dotenv\nSQLAlchemy\n"
 }
 
