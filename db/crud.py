@@ -16,15 +16,7 @@ async def get_or_create_user(session: AsyncSession, user_id: int, username: str 
     await session.commit()
     return user
 
-async def save_daily_report(
-    session: AsyncSession,
-    user_id: int,
-    relapse: bool,
-    showers: int,
-    worked_hours: float,
-    mood: int,
-    note: str | None = None
-):
+async def save_daily_report(session: AsyncSession, user_id: int, relapse: bool, showers: int, worked_hours: float, mood: int, note: str | None = None) -> DailyReport:
     report = DailyReport(
         user_id=user_id,
         date=date.today(),
@@ -36,3 +28,5 @@ async def save_daily_report(
     )
     session.add(report)
     await session.commit()
+    await session.refresh(report)
+    return report

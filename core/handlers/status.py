@@ -8,7 +8,8 @@ from aiogram.filters import Command
 
 router = Router()
 
-@router.message(Command("статус") | F.text.lower() == "📈 статус")
+@router.message(Command("статус"))
+@router.message(F.text == "📈 Статус")
 async def status_handler(message: types.Message):
     async with AsyncSessionLocal() as session:
         today = date.today()
@@ -33,7 +34,7 @@ async def status_handler(message: types.Message):
 
         response = (
             f"📆 Протокол за 7 дней:\n"
-            f"Всего отчётов: {total}\n"
+            f"Всего отчeтов: {total}\n"
             f"Стабильных дней: {success_days} ✅\n"
             f"Среднее настроение: {avg_mood} 😐\n"
         )

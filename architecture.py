@@ -19,17 +19,17 @@ files = {
     "main.py": "# Запуск приложения\n",
 
     "core/handlers/common.py": "# Хендлеры: /start, /help и т.п.\n",
-    "core/handlers/report.py": "# Хендлеры: отчёты пользователя\n",
+    "core/handlers/report.py": "# Хендлеры: отчeты пользователя\n",
     "core/handlers/status.py": "# Хендлеры: статус, срывы\n",
     "core/handlers/rewards.py": "# Хендлеры: награды и достижения\n",
 
     "core/middlewares/auth.py": "# Middleware: авторизация или логгирование\n",
 
-    "core/services/reporter.py": "# Бизнес-логика: работа с отчётами\n",
-    "core/services/tracker.py": "# Логика расчёта прогресса\n",
+    "core/services/reporter.py": "# Бизнес-логика: работа с отчeтами\n",
+    "core/services/tracker.py": "# Логика расчeта прогресса\n",
     "core/services/awards.py": "# Логика поощрений\n",
 
-    "core/keyboards/report_kb.py": "# Клавиатура для отчётов\n",
+    "core/keyboards/report_kb.py": "# Клавиатура для отчeтов\n",
     "core/keyboards/main_menu.py": "# Главное меню\n",
 
     "core/utils/date.py": "# Утилиты: работа с датами\n",
@@ -38,7 +38,7 @@ files = {
     "db/models.py": "# Модели: User, Report\n",
     "db/crud.py": "# CRUD-операции\n",
 
-    "state/report_state.py": "# Состояния FSM для диалога отчёта\n",
+    "state/report_state.py": "# Состояния FSM для диалога отчeта\n",
 
     ".env": "# BOT_TOKEN=your_token_here\n",
     "requirements.txt": "aiogram==3.*\npython-dotenv\nSQLAlchemy\n"

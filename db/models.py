@@ -1,7 +1,7 @@
 # db/models.py
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey, Date, Text
-from datetime import datetime
+from datetime import datetime, date
 from db.database import Base
 
 
@@ -29,3 +29,16 @@ class DailyReport(Base):
     note = Column(Text, nullable=True)
 
     user = relationship("User", back_populates="reports")
+
+
+class Violation(Base):
+    __tablename__ = "violations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    report_id = Column(Integer, ForeignKey("daily_reports.id"))
+    reason = Column(String, nullable=False)
+    date = Column(Date, default=date.today)
+
+    user = relationship("User")
+    report = relationship("DailyReport")

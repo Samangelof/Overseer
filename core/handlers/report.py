@@ -4,6 +4,7 @@ from aiogram.fsm.state import State, StatesGroup
 from core.keyboards.main_menu import main_menu_kb
 from db.crud import get_or_create_user, save_daily_report
 from db.database import AsyncSessionLocal
+from db.models import Violation
 
 
 router = Router()
@@ -15,7 +16,7 @@ class ReportState(StatesGroup):
     mood = State()
     note = State()
 
-@router.message(F.text.lower() == "📊 отчёт")
+@router.message(F.text.lower() == "📊 отчeт")
 async def report_start(message: types.Message, state: FSMContext):
     await state.set_state(ReportState.relapse)
     await message.answer("Срыв был сегодня? (да/нет)")
@@ -51,7 +52,8 @@ async def report_note(message: types.Message, state: FSMContext):
 
     async with AsyncSessionLocal() as session:
         await get_or_create_user(session, message.from_user.id, message.from_user.username)
-        await save_daily_report(
+
+        report = await save_daily_report(
             session,
             user_id=message.from_user.id,
             relapse=data["relapse"],
@@ -61,5 +63,18 @@ async def report_note(message: types.Message, state: FSMContext):
             note=data["note"]
         )
 
+        violations = []
+        if report.worked_hours < 6:
+            violations.append("Недостаточно работы")
+        if report.showers < 2:
+            violations.append("Мало душа")
+        if report.relapse:
+            violations.append("Срыв")
+
+        for reason in violations:
+            session.add(Violation(user_id=report.user_id, report_id=report.id, reason=reason))
+
+        await session.commit()
+
     await state.clear()
-    await message.answer("Отчёт принят. Протокол соблюдён.", reply_markup=main_menu_kb())
+    await message.answer("Отчeт принят. Протокол соблюдeн.", reply_markup=main_menu_kb())

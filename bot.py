@@ -7,7 +7,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import settings
-from core.handlers import common, report, status
+from core.handlers import common, report, status, rules, rules_stats, relapse
 
 
 logging.basicConfig(level=logging.INFO)
@@ -24,6 +24,10 @@ async def main():
         common.router,
         report.router,
         status.router,
+        rules.router,
+        rules_stats.router,
+        relapse.router,
+
     )
 
     await dp.start_polling(bot)
